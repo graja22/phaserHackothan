@@ -1,0 +1,235 @@
+
+
+
+    <style>
+    *{
+	border: 0 0;
+	padding: 0 0;
+	box-sizing: border-box;
+	/*background-color: grey;*/
+	word-spacing: 5px;
+}
+#container{
+	width: 75%;
+	margin: auto;
+	border: thin solid grey;
+	text-align: left;
+	font-family: verdana;
+	font-size: 13px;
+	position: relative;
+	/*line-height: 40px;*/
+}
+
+#content{
+	width:100%;
+	position: relative;
+	/*margin-left: auto;*/
+	line-height: 40px;
+	text-align: center;
+}
+	
+#content2{
+	position: relative;
+	background-color: grey;
+}
+
+
+#button{
+	position: relative;
+	margin-top: 4%;
+	margin-bottom: 4%;
+	left: 40%;
+	width: 150px;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+#mCycle{
+	font-size: 2em;
+	font-weight: bolder;
+}
+
+#ovulation_day{
+	font-size: 2em;
+	font-weight: bolder;
+}
+
+#safe_period{
+	position: relative;
+	left: 21.5%;
+}
+
+#and{
+	position: relative;
+	text-align: center;
+	line-height: 5px;
+}
+
+#section1{
+	background-color:white;
+	position: relative;
+	overflow: hidden;
+	padding-left: 3%;
+}
+
+#section2{
+	background-color: white;
+	position: relative;
+	overflow: hidden;
+	padding-left: 3%;
+}
+
+.date{
+	font-weight: bold;
+	text-align: center;
+	color: grey;
+}
+
+.definitions{
+	font-size: .9em;
+	position: relative;
+	margin-top: 2px;
+	color: purple;
+}
+
+.paragraph{
+	margin-bottom: 5%;
+}
+    
+    </style>
+    <!-- <script>
+    
+    {
+        $('btn').click(function() {
+   $('.likes').text();
+});
+    }
+    </script> -->
+
+<div style="background-color: white">
+    <div class="container">
+  
+  <div id="container">
+		<div id="content">
+			<p>ENTER DATE OF PREVIOUS MENSTRUATION 
+				<input type="date" id="previous_period" class="date" />
+            </p>
+			
+			<p>ENTER DATE OF CURRENT MENSTRUATION 
+				<input type="date" id="current_period" class="date" />
+            </p>
+		</div>
+		
+		<p>
+			<button id="button" onclick="ovulationCalculator()">CONTINUE
+			</button>
+		</p>
+			
+		 
+			<section id="section1">
+				<p class="paragraph">YOUR MENSTRUAL CYCLE IS <span id="mCycle"></span><br />
+				<span class="definitions">(The menstrual cycle is the time from the first day of a woman's period to the day before her next period)</span>
+				
+				<p class="paragraph">YOU LAST OVULATED ON DAY <span id="ovulation_day"></span> OF YOUR CYCLE EQUIVALENT TO <input type="date" id="last_ovulation" class="date" />
+				<br /><span class="definitions">(Ovulation is the release of egg(s) by the ovaries into the fallopian tube to be fertilized by sperm)</span>
+				
+				YOUR OVULATION WINDOW WAS FROM <input type="date" id="ovulation_window1" class="date" /> TO <input type="date" id="ovulation_window2" class="date" />
+				<br /><span class="definitions">(Ovulation window or fertile window refers to the most fertile days in your menstrual cycle which gives you the highest chance of conceiving)</span>
+			</section>
+			<section id="section2">
+				<p class="paragraph">YOUR NEXT MENSTRUATION IS ON <input type="date" id="next_mens" class="date" /></p>
+				
+				<p class="paragraph">YOUR NEXT OVULATION IS ON <input type="date" id="next_ovulation" class="date" /></p>
+				
+				<p class="paragraph">OVULATION WINDOW WILL BE BETWEEN <input type="date" id="ovulation_window3" class="date" /> AND <input type="date" id="ovulation_window4" class="date" />
+				<br /><span class="definitions">(Ovulation window or fertile window refers to the most fertile days in your menstrual cycle which gives you the highest chance of conceiving)</span>
+				
+				<p>SAFE PERIODS ARE <input type="date" id="safe_period1" class="date" /> TO <input type="date" id="safe_period2" class="date" />
+				AND <input type="date" id="safe_period3" class="date" /> TO <input type="date" id="safe_period4" class="date" />
+				<br /><span class="definitions">(Safe periods are times in which conceiving is not possible)</span>
+			</section>
+		 
+	</div>
+</div>
+
+<script>
+function ovulationCalculator() {
+			var previuosMens = document.getElementById('previous_period').value; //date of previous menstruation
+			var currentMens = document.getElementById('current_period').value; //date of current menstruation
+			
+			document.getElementById('last_ovulation').value = currentMens; // date of ovulation between previous menstruation and the current one
+			document.getElementById('next_mens').value = currentMens; //value of next menstruation afeter the last one
+			document.getElementById('next_ovulation').value = currentMens; //value of next ovulation after the last one
+			document.getElementById('ovulation_window1').value = currentMens; //ovulation window btw the last mentruation and the current one
+			document.getElementById('ovulation_window2').value = currentMens; //ovulation window btw the last mentruation and the current one
+			document.getElementById('ovulation_window3').value = currentMens; //ovulation window btw the current mentruation and the next one
+			document.getElementById('ovulation_window4').value = currentMens; //ovulation window btw the current mentruation and the next one
+			document.getElementById('safe_period1').value = currentMens; 
+			document.getElementById('safe_period2').value = currentMens;
+			document.getElementById('safe_period3').value = currentMens;
+			document.getElementById('safe_period4').value = currentMens;
+									
+			var date1 = new Date(previuosMens);
+			var previous_date = date1.getTime();
+			var date2 = new Date(currentMens);
+			var current_date = date2.getTime();
+						
+			var date_diff = (current_date - previous_date);
+			var seconds = (date_diff / 1000);
+			var minutes = (seconds / 60);
+			var hours = (minutes / 60);
+			var days = (hours / 24);
+			
+		var cycle = document.getElementById('mCycle').innerHTML = days + " DAYS ";
+		console.log(cycle);
+		document.getElementById('ovulation_day').innerHTML = (days - 14); // day of ovulation between previous menstruation and the last one
+		document.getElementById('last_ovulation').stepDown(14); // date of ovulation between previous menstruation and the last one
+		document.getElementById('next_mens').stepUp(days); //date of next menstruation afeter the last one
+		document.getElementById('next_ovulation').stepUp(days - 14); //date of next ovulation after the last one
+		document.getElementById('ovulation_window1').stepDown(18); 
+		document.getElementById('ovulation_window2').stepDown(14);
+		document.getElementById('ovulation_window3').stepUp(days - 18);
+		document.getElementById('ovulation_window4').stepUp(days - 14);
+		document.getElementById('safe_period1').value = currentMens;
+		document.getElementById('safe_period2').stepUp(9);
+		document.getElementById('safe_period3').stepUp(15);
+		document.getElementById('safe_period4').stepUp(37);	
+	}
+</script>
+
+
+
+  <script>
+  var x = 5;
+var span = document.querySelector('span'); 
+var increment = document.getElementById('increment'); // find the element with the ID 'increment'
+var decrement = document.getElementById('decrement'); // find the element with the ID 'decrement'
+
+increment.addEventListener('click', function () {
+  // this function is executed whenever the user clicks the increment button
+  span.textContent = x++;
+});
+
+decrement.addEventListener('click', function () {
+  // this function is executed whenever the user clicks the decrement button
+  span.textContent = x--;
+});
+var y = 28;
+var mark= document.querySelector('mark'); 
+var increment = document.getElementById('increment1'); // find the element with the ID 'increment'
+var decrement = document.getElementById('decrement1'); // find the element with the ID 'decrement'
+
+increment1.addEventListener('click', function () {
+  // this function is executed whenever the user clicks the increment button
+  mark.textContent = y++;
+});
+
+decrement1.addEventListener('click', function () {
+  // this function is executed whenever the user clicks the decrement button
+  mark.textContent = y--;
+});
+
+
+</script>
+</div>
+
